@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GGI Bus Service - Admin Dashboard</title>
+
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -27,6 +29,7 @@ body {
 }
 
 /* Sidebar */
+
 sidebar {
     width: 260px;
     background: var(--admin-primary);
@@ -56,11 +59,13 @@ sidebar {
     font-size: 15px;
 }
 
-.sidebar-menu li:hover, .sidebar-menu li.active {
+.sidebar-menu li:hover,
+.sidebar-menu li.active {
     background: var(--admin-accent);
 }
 
 /* Main Content */
+
 .main-content {
     flex: 1;
     display: flex;
@@ -94,6 +99,7 @@ header h2 {
 }
 
 /* Cards Grid */
+
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -123,6 +129,7 @@ header h2 {
 }
 
 /* Section Box */
+
 .section-box {
     background: white;
     padding: 25px;
@@ -141,7 +148,27 @@ header h2 {
     align-items: center;
 }
 
+/* Clear Button */
+
+.clear-btn {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.clear-btn:hover {
+    background: #b91c1c;
+    transform: translateY(-1px);
+}
+
 /* Table */
+
 .table-container {
     overflow-x: auto;
 }
@@ -178,147 +205,512 @@ tr:hover {
     font-size: 12px;
 }
 
+/* Responsive */
+
 @media(max-width: 1000px) {
-    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
 @media(max-width: 600px) {
-    body { flex-direction: column; }
-    sidebar { width: 100%; }
-    .cards-grid { grid-template-columns: 1fr; }
+
+    body {
+        flex-direction: column;
+    }
+
+    sidebar {
+        width: 100%;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
 }
+
 </style>
 </head>
+
 <body>
 
+<!-- ================= SIDEBAR ================= -->
+
 <sidebar>
-    <div class="sidebar-brand">GGI Admin Panel</div>
+
+    <div class="sidebar-brand">
+        GGI Admin Panel
+    </div>
+
     <ul class="sidebar-menu">
-        <li class="active">📊 Live Attendance</li>
-        <li>🚌 Bus Management</li>
-        <li>👨‍🎓 Students List</li>
-        <li>⚙️ Settings</li>
+
+        <li class="active">
+            📊 Live Attendance
+        </li>
+
+        <li>
+            🚌 Bus Management
+        </li>
+
+        <li>
+            👨‍🎓 Students List
+        </li>
+
+        <li>
+            ⚙️ Settings
+        </li>
+
     </ul>
+
 </sidebar>
 
+
+<!-- ================= MAIN CONTENT ================= -->
+
 <div class="main-content">
+
     <header>
-        <h2>Dashboard Overview</h2>
-        <div class="admin-profile">👤 Administrator</div>
+
+        <h2>
+            Dashboard Overview
+        </h2>
+
+        <div class="admin-profile">
+            👤 Administrator
+        </div>
+
     </header>
 
+
     <div class="container">
-        <!-- Stat Cards -->
+
+        <!-- ================= STAT CARDS ================= -->
+
         <div class="cards-grid">
+
             <div class="stat-card">
-                <h3>Total Active Buses</h3>
-                <div class="number">5</div>
+
+                <h3>
+                    Total Active Buses
+                </h3>
+
+                <div class="number">
+                    5
+                </div>
+
             </div>
-            <div class="stat-card" style="border-left-color: var(--success);">
-                <h3>Live Scanned Today</h3>
-                <div class="number" id="totalScannedCount">0</div>
+
+
+            <div class="stat-card"
+                 style="border-left-color: var(--success);">
+
+                <h3>
+                    Live Scanned Today
+                </h3>
+
+                <div class="number"
+                     id="totalScannedCount">
+                    0
+                </div>
+
             </div>
-            <div class="stat-card" style="border-left-color: #f59e0b;">
-                <h3>Total Capacity</h3>
-                <div class="number">215</div>
+
+
+            <div class="stat-card"
+                 style="border-left-color: #f59e0b;">
+
+                <h3>
+                    Total Capacity
+                </h3>
+
+                <div class="number">
+                    215
+                </div>
+
             </div>
-            <div class="stat-card" style="border-left-color: #8b5cf6;">
-                <h3>System Status</h3>
-                <div class="number" style="font-size: 20px; color: var(--success); margin-top: 6px;">● Online</div>
+
+
+            <div class="stat-card"
+                 style="border-left-color: #8b5cf6;">
+
+                <h3>
+                    System Status
+                </h3>
+
+                <div class="number"
+                     style="
+                     font-size: 20px;
+                     color: var(--success);
+                     margin-top: 6px;">
+
+                    ● Online
+
+                </div>
+
             </div>
+
         </div>
 
-        <!-- Live Attendance Logs Table -->
+
+        <!-- ================= ATTENDANCE ================= -->
+
         <div class="section-box">
+
             <div class="section-title">
-                <span>Live Fingerprint Scans (Real-Time Logs)</span>
+
+                <span>
+                    Live Fingerprint Scans
+                </span>
+
+                <!-- CLEAR BUTTON -->
+
+                <button
+                    class="clear-btn"
+                    onclick="clearAttendance()">
+
+                    🗑️ Clear Attendance
+
+                </button>
+
             </div>
+
+
             <div class="table-container">
+
                 <table>
+
                     <thead>
+
                         <tr>
-                            <th>Student ID</th>
-                            <th>Student Name</th>
-                            <th>Bus Info</th>
-                            <th>Status</th>
-                            <th>Scan Time</th>
+
+                            <th>
+                                Student ID
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                            <th>
+                                Bus Info
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Scan Time
+                            </th>
+
                         </tr>
+
                     </thead>
+
+
                     <tbody id="adminAttendanceTable">
-                        <!-- Data will load dynamically from Firebase -->
+
+                        <!-- Firebase data will appear here -->
+
                     </tbody>
+
                 </table>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
-<!-- ================= FIREBASE REALTIME SCRIPT ================= -->
+
+<!-- ================= FIREBASE ================= -->
+
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
-  // Firebase Configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAeFcqABVLkBAxCkrhcuhi3tpKdvMDyoC4",
-    authDomain: "bus-64700.firebaseapp.com",
-    projectId: "bus-64700",
-    storageBucket: "bus-64700.firebasestorage.app",
-    messagingSenderId: "1058682790490",
-    appId: "1:1058682790490:web:9d08ea9fa7e4509c416e63",
-    measurementId: "G-S4D3PN6YHF"
-  };
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
-  const app = initializeApp(firebaseConfig);
-  const database = getDatabase(app);
 
-  // Listen to 'attendance' node in Firebase Realtime Database
-  const attendanceRef = ref(database, 'attendance');
+import {
+    getDatabase,
+    ref,
+    onValue,
+    remove
+}
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
-  onValue(attendanceRef, (snapshot) => {
-      const firebaseData = snapshot.val();
-      const tableBody = document.getElementById("adminAttendanceTable");
-      tableBody.innerHTML = ""; // Clear table before rendering
 
-      let scanCount = 0;
+// =================================================
+// FIREBASE CONFIG
+// =================================================
 
-      if (firebaseData) {
-          const keys = Object.keys(firebaseData);
-          scanCount = keys.length;
+const firebaseConfig = {
 
-          keys.forEach(key => {
-              const record = firebaseData[key];
+    apiKey:
+        "AIzaSyAeFcqABVLkBAxCkrhcuhi3tpKdvMDyoC4",
 
-              const row = document.createElement("tr");
-              row.innerHTML = `
-                  <td><b>${record.studentId || record.id || "-"}</b></td>
-                  <td>${record.studentName || record.name || "Unknown Student"}</td>
-                  <td>${record.busNo || record.bus || "Bus 1"}</td>
-                  <td><span class="badge-present">Present</span></td>
-                  <td>${record.time || record.timestamp || "Just now"}</td>
-              `;
-              tableBody.appendChild(row);
-          });
-      } else {
-          const row = document.createElement("tr");
-          row.innerHTML = `<td colspan="5" style="text-align: center; color: #64748b; padding: 20px;">No fingerprint scans recorded yet.</td>`;
-          tableBody.appendChild(row);
-      }
-      <button onclick="clearAttendance()"
-        style="
-        background:#dc2626;
-        color:white;
-        border:none;
-        padding:10px 18px;
-        border-radius:8px;
-        cursor:pointer;
-        font-weight:bold;">
-    🗑️ Clear Attendance
-</button>
+    authDomain:
+        "bus-64700.firebaseapp.com",
 
-      // Update total scanned count card
-      document.getElementById("totalScannedCount").textContent = scanCount;
-  });
+    projectId:
+        "bus-64700",
+
+    storageBucket:
+        "bus-64700.firebasestorage.app",
+
+    messagingSenderId:
+        "1058682790490",
+
+    appId:
+        "1:1058682790490:web:9d08ea9fa7e4509c416e63",
+
+    measurementId:
+        "G-S4D3PN6YHF"
+
+};
+
+
+// =================================================
+// INITIALIZE FIREBASE
+// =================================================
+
+const app =
+    initializeApp(firebaseConfig);
+
+const database =
+    getDatabase(app);
+
+
+// =================================================
+// ATTENDANCE REFERENCE
+// =================================================
+
+const attendanceRef =
+    ref(database, "attendance");
+
+
+// =================================================
+// REAL-TIME ATTENDANCE LISTENER
+// =================================================
+
+onValue(
+    attendanceRef,
+    (snapshot) => {
+
+        const firebaseData =
+            snapshot.val();
+
+        const tableBody =
+            document.getElementById(
+                "adminAttendanceTable"
+            );
+
+
+        // Clear existing HTML
+
+        tableBody.innerHTML = "";
+
+
+        let scanCount = 0;
+
+
+        // =================================================
+        // DATA EXISTS
+        // =================================================
+
+        if (firebaseData) {
+
+            const keys =
+                Object.keys(firebaseData);
+
+            scanCount =
+                keys.length;
+
+
+            keys.forEach(
+                (key) => {
+
+                    const record =
+                        firebaseData[key];
+
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            <b>
+                                ${
+                                    record.studentId ||
+                                    record.id ||
+                                    "-"
+                                }
+                            </b>
+                        </td>
+
+                        <td>
+                            ${
+                                record.studentName ||
+                                record.name ||
+                                "Unknown Student"
+                            }
+                        </td>
+
+                        <td>
+                            ${
+                                record.busNo ||
+                                record.bus ||
+                                "Bus 1"
+                            }
+                        </td>
+
+                        <td>
+
+                            <span class="badge-present">
+                                ${
+                                    record.status ||
+                                    "Present"
+                                }
+                            </span>
+
+                        </td>
+
+                        <td>
+                            ${
+                                record.time ||
+                                record.timestamp ||
+                                "Just now"
+                            }
+                        </td>
+
+                    `;
+
+
+                    tableBody.appendChild(row);
+
+                }
+            );
+
+        }
+
+
+        // =================================================
+        // NO DATA
+        // =================================================
+
+        else {
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td colspan="5"
+                    style="
+                    text-align:center;
+                    color:#64748b;
+                    padding:20px;">
+
+                    No fingerprint scans recorded yet.
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(row);
+
+        }
+
+
+        // =================================================
+        // UPDATE COUNT
+        // =================================================
+
+        document
+            .getElementById("totalScannedCount")
+            .textContent = scanCount;
+
+    }
+);
+
+
+// =================================================
+// CLEAR ATTENDANCE FUNCTION
+// =================================================
+
+window.clearAttendance =
+    async function () {
+
+
+        // Confirmation
+
+        const confirmClear =
+            confirm(
+                "Are you sure you want to clear ALL attendance data?"
+            );
+
+
+        if (!confirmClear) {
+
+            return;
+
+        }
+
+
+        try {
+
+            console.log(
+                "Clearing attendance..."
+            );
+
+
+            // Delete Firebase attendance node
+
+            await remove(
+                attendanceRef
+            );
+
+
+            alert(
+                "✅ Attendance cleared successfully!"
+            );
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Clear attendance error:",
+                error
+            );
+
+
+            alert(
+                "❌ Failed to clear attendance.\n\n" +
+                error.message
+            );
+
+        }
+
+    };
+
 </script>
 
 </body>
